@@ -1,8 +1,12 @@
 #!/bin/bash
-ckb run > ckb_run.log 2>&1 &
+
+# Start ckb run in the background
+nohup ckb run > ckb_run.log 2>&1 &
 echo $! > pid
-ckb miner > ckb_miner.log 2>&1 &
+
+# Start ckb miner in the background
+nohup ckb miner > ckb_miner.log 2>&1 &
 echo $! >> pid
 
-tail -f /dev/null
-exec "$@"
+# Wait for background processes
+wait
